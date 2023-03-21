@@ -3,9 +3,11 @@
 $_['heading_title'] = 'Интернет-эквайринг Модульбанк';
 
 // Text
+/*
 $_['text_extension'] = 'Extensions';
 $_['text_success']   = 'Success: You have modified Modulbank settings!';
 $_['text_edit']      = 'Настройки Интернет-эквайринга Модульбанк';
+*/
 
 $_['text_mode_test'] = 'Test';
 $_['text_mode_prod'] = 'Prod';

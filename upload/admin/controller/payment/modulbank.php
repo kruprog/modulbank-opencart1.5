@@ -201,11 +201,20 @@ class ControllerPaymentModulbank extends Controller
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
-		$data['header']      = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer']      = $this->load->controller('common/footer');
+		//$data['header']      = $this->load->controller('common/header');
+		//$data['column_left'] = $this->load->controller('common/column_left');
+		//$data['footer']      = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('payment/modulbank.tpl', $data));
+		//$this->response->setOutput($this->load->view('payment/modulbank.tpl', $data));
+		$this->data=$data;
+		$this->template = 'payment/modulbank.tpl';
+		$this->children = array(
+			'common/header',
+			#'common/column_left',
+			'common/footer',
+		);
+
+		$this->response->setOutput($this->render());			
 	}
 
 	protected function validate()

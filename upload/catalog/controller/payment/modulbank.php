@@ -22,12 +22,46 @@ class ControllerPaymentModulbank extends Controller
 
 		if($this->oldversion()) {
     		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/modulbank.tpl')) {
-                return $this->load->view($this->config->get('config_template') . '/template/payment/modulbank.tpl', $data);
+                //return $this->load->view($this->config->get('config_template') . '/template/payment/modulbank.tpl', $data);
+
+				$this->data=$data;
+				$this->template = $this->config->get('config_template') . '/template/payment/modulbank.tpl';				
+				$this->children = array(
+					'common/header',
+					#'common/column_left',
+					'common/footer',
+				);
+		
+				$this->response->setOutput($this->render());
+
             } else {
-                return $this->load->view('default/template/payment/modulbank.tpl', $data);
+
+                //return $this->load->view('default/template/payment/modulbank.tpl', $data);
+
+				$this->data=$data;
+				$this->template = 'default/template/payment/modulbank.tpl';				
+				$this->children = array(
+					'common/header',
+					#'common/column_left',
+					'common/footer',
+				);
+		
+				$this->response->setOutput($this->render());								
+
+
             }
         } else {
-            return $this->load->view('payment/modulbank', $data);
+            //return $this->load->view('payment/modulbank', $data);
+
+			$this->data=$data;
+			$this->template = 'default/template/payment/modulbank.tpl';				
+			$this->children = array(
+				'common/header',
+				#'common/column_left',
+				'common/footer',
+			);
+	
+			$this->response->setOutput($this->render());				
         }
 	}
 
@@ -81,7 +115,9 @@ class ControllerPaymentModulbank extends Controller
 		$this->log($data, 'paymentform');
 
 		$orderStatusId = $this->config->get('config_order_status_id');
-        $this->model_checkout_order->addOrderHistory($order_id, $orderStatusId, '');
+        //$this->model_checkout_order->addOrderHistory($order_id, $orderStatusId, '');
+
+		$this->model_checkout_order->confirm($order_id, $orderStatusId, '');//hob edition		
 
         echo json_encode([
 			'error' => false,
@@ -129,7 +165,11 @@ class ControllerPaymentModulbank extends Controller
 				$this->db->query("REPLACE " . DB_PREFIX . "modulbank (order_id, amount, transaction) VALUES ($order_id,'"
 					. $this->db->escape($post['amount']) . "','"
 					. $this->db->escape($post['transaction_id']) . "')");
-				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('modulbank_order_status_id'));
+
+
+				//$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('modulbank_order_status_id'));
+
+				$this->model_checkout_order->confirm($order_id, $this->config->get('modulbank_order_status_id'));//hob edition						
 			}
 		} else {
 			$this->error('Wrong signature');

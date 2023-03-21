@@ -231,7 +231,8 @@ class ModelPaymentModulbank extends Model {
 
 	public function getVersion()
 	{
-		$query = $this->db->query("SELECT version FROM " . DB_PREFIX . "modification WHERE code = 'modulbank_payment'");
-		return $query->row['version'];
+		return '1.5.1';
+		//$query = $this->db->query("SELECT version FROM " . DB_PREFIX . "modification WHERE code = 'modulbank_payment'");
+		//return $query->row['version'];
 	}
 }
